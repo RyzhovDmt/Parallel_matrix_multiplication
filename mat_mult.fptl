@@ -1,0 +1,84 @@
+Scheme Matrix
+{
+    N=[1];
+    @ = GetTime <Mult,"time:">;
+    Fun CreateMatrix
+    {
+        @ = (([1] * [1]).mul * [2]).arrayCreate;
+    }
+
+	Fun printMatrix
+	{
+		Matr = [1];
+		N = ([2] * 1).sub;
+		
+		@ = (N * 0).gequal -> (Matr * N).arrayGet.print * 
+							" ".print * 
+							(Matr * N).printMatrix,
+							Matr;
+	}
+
+    Fun GetTime <function,message> 
+    {
+        @ = (getCurrentTime * function).((message*(getCurrentTime*[1]).sub.toString * "\n").add.rawPrint * [2]);
+    }
+    Fun Mult
+    {
+        @ = (Empty*0*0*0*N*N*A*B).RecMult;
+        Empty = (N*0.0).CreateMatrix;
+        A = (N*1.0).CreateMatrix;
+        B = (N*1.0).CreateMatrix;
+        Fun RecMult
+        {
+            Res = [1];
+            BlockC = [2];
+            BlockA = [3];
+            BlockB = [4];
+            BlockSize = [5];
+            RowSize = [6];
+            A = [7];
+            B = [8];
+            @ = (BlockSize*2).equal->(Res*BlockC*BlockA*BlockB*BlockSize*RowSize*A*B).Calc,
+            (((((((((((((((Res*0*0*0*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            0*(BlockSize*2).div*((BlockSize*2).div*RowSize).mul*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            (BlockSize*2).div*0*(BlockSize*2).div*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            (BlockSize*2).div*(BlockSize*2).div*((BlockSize*2).div*(RowSize*1).add).mul*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            ((BlockSize*2).div*RowSize).mul*((BlockSize*2).div*RowSize).mul*0*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            ((BlockSize*2).div*RowSize).mul*((BlockSize*2).div*(RowSize*1).add).mul*((BlockSize*2).div*RowSize).mul*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            ((BlockSize*2).div*(RowSize*1).add).mul*((BlockSize*2).div*RowSize).mul*(BlockSize*2).div*(BlockSize*2).div*RowSize*A*B).RecMult)*
+            ((BlockSize*2).div*(RowSize*1).add).mul*((BlockSize*2).div*(RowSize*1).add).mul*((BlockSize*2).div*(RowSize*1).add).mul*(BlockSize*2).div*RowSize*A*B).RecMult;
+            Fun Calc
+            {
+                Res = [1];
+                BlockC = [2];
+                BlockA = [3];
+                BlockB = [4];
+                BlockSize = [5];
+                RowSize = [6];
+                A = [7];
+                B = [8];
+                C11 = ((((A*BlockA).arrayGet)*((B*BlockB).arrayGet)).mul*
+                (((A*(BlockA*1).add).arrayGet)*((B*(BlockB*RowSize).add).arrayGet)).mul).add;
+                C12 = ((((A*BlockA).arrayGet)*((B*(BlockB*1).add).arrayGet)).mul*
+                (((A*(BlockA*1).add).arrayGet)*((B*(((BlockB*RowSize).add)*1).add).arrayGet)).mul).add;
+                C21 = ((((A*(BlockA*RowSize).add).arrayGet)*((B*BlockB).arrayGet)).mul*
+                (((A*(((BlockA*RowSize).add)*1).add).arrayGet)*((B*(BlockB*RowSize).add).arrayGet)).mul).add;
+                C22 = ((((A*(BlockA*RowSize).add).arrayGet)*((B*(BlockB*1).add).arrayGet)).mul*
+                (((A*(((BlockA*RowSize).add)*1).add).arrayGet)*((B*(((BlockB*RowSize).add)*1).add).arrayGet)).mul).add;
+                @ = ((((Res*BlockC*C11).Placement*(BlockC*1).add*C12).Placement*(BlockC*RowSize).add*C21).Placement*
+                ((BlockC*1).add*RowSize).add*C22).Placement;
+                Fun Placement
+                {
+                    Res = [1];
+                    Place = [2];
+                    Value = [3];
+                    @ = ((Res*Place).arrayGet*0.0).equal -> (Res*Place*Value).arraySet,
+                    (Res*Place*((Res*Place).arrayGet*Value).add).arraySet;
+                }
+            }
+        }
+    }
+
+}
+Application
+% Matrix(128)
